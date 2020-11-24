@@ -1,4 +1,6 @@
 from app import db
+from datetime import datetime
+import enum
 
 class Question(db.Model):
 	__tablename__ = 'question'
@@ -6,6 +8,8 @@ class Question(db.Model):
 	content = db.Column(db.String(1024), index=True, unique=False)
 	id_answer = db.Column(db.Integer, db.ForeignKey('answer.id'))
 	need_paper= db.Column(db.Boolean)
+
+	evaluation = db.relationship('Evaluation', backref='question', lazy='dynamic')
 
 	def __repr__(self):
 		return f'<Question{self.id} {self.content} [solution={self.id_answer}] [need_paper={self.need_paper}]>'
@@ -84,39 +88,28 @@ class Carnet(db.Model):
 
 	def get_all_questions(self):
 		questions = self.get_questions()
-		print(questions)
 		for c in self.children_carnets:
 			questions += c.get_questions()
-		print(questions)
 		return questions
 
+class autoeval(enum.Enum):
+	not_known = 1
+	not_enought = 2
+	known = 3
+	mastered = 4
+
+class Evaluation(db.Model):
+	__tablename__ = 'evaluation'
+	id = db.Column(db.Integer, primary_key=True)
+	timestamp = db.Column(db.DateTime, index=True, default=datetime.utcnow)
+	id_question = db.Column(db.Integer, db.ForeignKey('question.id'))
+	result = db.Column(db.Enum(autoeval))
+
+	def __repr__(self):
+		return f"Eval [id_question: {self.id_question}] {self.result} -- {self.timestamp}"
 
 
-"""
-
-Carnet2 = Carnet(2, "english")
-Answer1 = Answer(1, id_carnet=2, text_content="abide abode abode")
-Question1 = Question(1, id_answer=1, content="conjugaison de respecter, se conformer à")
-
-Answer2 = Answer(2, id_carnet=2, text_content="arise arose arisen")
-Question2 = Question(2, id_answer=2, content="conjugason de survenir")
 
 
-Carnet1 = Carnet(1, "maths")
-Answer3 = Answer(3, id_carnet=1, text_content="\\(a^2 + b^2 = c^2\\)")
-Question3 = Question(3, id_answer=3, content="enoncer le théorème de pythagore")
-
-Carnet3 = Carnet(3, "Analyse", id_parent_carnet=1)
-Answer4 = Answer(4, id_carnet=3, text_content="Soient \\((X,d)\\) un espace compact et (E,|| \\(\\dot\\) ||) un espace de Banach.\n On considère une partie A de C(X,E) qui est A est uniformement équicontinue et ponctuellement d'adhérence compact. \n Alors A est dense dans C(X, E)")
-Question4 = Question(4, id_answer=4, content="enoncer le theoreme d'Ascolie")
-Question5 = Question(5, id_answer=4, content="donner une condition suffisante pour que A soit dense dans C(X, E).")
-
-Carnet4 = Carnet(4, "Proba", id_parent_carnet=1)
-Answer5 = Answer(5, id_carnet=4, text_content="Si T est un temps d'arrêt et (Xn) est une martingale alors (Xn) arretré au temps T est aussi une martingale")
-Question6 = Question(6, id_answer=5, content="Donner une condition suffisante pour que (Xn) arreté au temps T soit une martingale")
 
 
-carnets = [Carnet1, Carnet2, Carnet3, Carnet4]
-answers = [Answer1, Answer2, Answer3, Answer4, Answer5]
-questions = [Question1, Question2, Question3, Question4, Question5, Question6]
-"""

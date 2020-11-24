@@ -19,3 +19,9 @@ div.answer-content {
 	font-size: 30px;
 	text-align: center;
 }
+
+div.autoeval-form {
+	margin: 0 auto;
+	text-align: center;
+	width: 500px;
+}

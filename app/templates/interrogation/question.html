@@ -10,8 +10,10 @@
         {% include 'interrogation/_answer.html' %}
 
         {% if form %}
-        <div class="answer-form">
-	    	<form action="" method="post" novalidate>
+        <hr>
+        <div class="autoeval-form">
+	    	<form method="post">
+
 		        {{ form.hidden_tag() }}
                 {{ form.not_known() }}
                 {{ form.not_enought() }}

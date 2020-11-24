@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+    <body>
+        
+    	{% include 'interrogation/_question.html' %}
+    
+        {% include 'interrogation/_answer.html' %}
+
+        {% if form %}
+        <div class="answer-form">
+	    	<form action="" method="post" novalidate>
+		        {{ form.hidden_tag() }}
+                {{ form.not_known() }}
+                {{ form.not_enought() }}
+                {{ form.known() }}
+                {{ form.mastered() }}
+		    </form>
+        </div>
+    	{% endif %}
+    </body>
+{% endblock %}

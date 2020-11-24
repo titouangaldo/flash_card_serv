@@ -1,0 +1,21 @@
+div.nav-bar {
+	color: green;
+	font-size:30px;
+}
+
+div.question-content {
+	margin-top: 30;
+	text-align: center;
+	font-size: 30px;
+}
+
+.display-answer-but {
+	display: block;
+	margin: 0 auto;
+}
+
+div.answer-content {
+	color: blue;
+	font-size: 30px;
+	text-align: center;
+}

@@ -1,0 +1,43 @@
+<h2>Answers - <button class="display-answer-preview-but" onclick="display_answer()">Display Answers</button></h2>
+{% if addAnswerForm %}
+	<h3>Add Answer</h3>
+	<form action="" method="post" novalidate>
+        {{ addAnswerForm.hidden_tag() }}
+        <p>
+            {{ addAnswerForm.text_content.label }}
+            {{ addAnswerForm.text_content(size=32) }}
+    	    {{ addAnswerForm.submit() }}
+    	</p>
+	</form>
+    <hr>
+{% endif %}
+
+{% if inner_answers|length > 0 %}
+    <div class="answers-preview" style="visibility: hidden; display: none">
+    {% for a in inner_answers %}
+		{% include '_answer_preview.html' %}
+	{% endfor %}
+    </div>
+    {{inner_answers|length}} answers.
+{% else %}
+    No answers.
+{% endif %}
+
+{% block scripts %}
+    <script> <!--toggle display-->
+        function display_answer(){
+            el = document.querySelector('.answers-preview');
+            btn = document.querySelector(".display-answer-preview-but")
+
+            if(el.style.visibility == 'hidden'){
+                el.style.visibility = 'visible'
+                el.style.display = 'block'
+                btn.innerHTML = "Hide Answers"
+            }else{
+                el.style.visibility = 'hidden'
+                el.style.display = 'none'
+                btn.innerHTML = "Display Answers"
+            }
+        }
+    </script>
+{% endblock %}

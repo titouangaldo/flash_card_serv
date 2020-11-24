@@ -1,0 +1,10 @@
+<div class="question{{q.id}}-preview">
+	<hr>
+	<form>
+		<input type="text" name="edit-question{{q.id}}" size="{{q.content|length + 10}}" value="{{q.content}}">
+		
+	</form>
+	<form>
+		<button type="submit" name="delete-question" value="{{q.id}}">Delete question</button>
+	</form>
+</div>

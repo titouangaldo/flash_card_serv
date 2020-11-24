@@ -1,0 +1,29 @@
+
+{% block scripts %}
+	<script> <!--toggle display-->
+	    function display_answer(){
+	        el = document.querySelector('.answer-content');
+	            
+	        if(el.style.visibility == 'hidden'){
+	            el.style.visibility = 'visible'
+	            el.style.display = 'block'
+	        }else{
+	            el.style.visibility = 'hidden'
+	            el.style.display = 'none'
+	        }
+	    }
+	</script>
+{% endblock %}
+
+<div class="answer" >
+	<p>
+		<button class="display-answer-but" onclick="display_answer()">Display Answer</button>
+	</p>
+	<p>
+		<div class="answer-content" style="visibility: hidden; display: none">
+			{% if answer.text_content %}{{ answer.text_content }}
+			{% else %}No content for this answer
+			{% endif %}
+		</div>
+	</p>
+</div>

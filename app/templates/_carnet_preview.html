@@ -1,0 +1,9 @@
+<div class="carnet{{c.id}}-preview">
+	
+	<form>
+		<a href="{{ url_for('main.carnet', id_carnet=c.id) }}">{{ c.name }}</a>
+	| {{ c.get_all_questions()|length }} questions
+		<button type="submit" name="delete-carnet" value="{{ c.id }}">Delete</button>	
+	</form>
+	<hr>
+</div>

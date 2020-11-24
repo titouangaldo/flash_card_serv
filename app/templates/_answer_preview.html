@@ -1,0 +1,16 @@
+<div class="answer{{a.id}}-preview">
+	
+	<form>
+		Answer: <b>{{ a.text_content }}</b>
+		<button type="submit" name="edit-answer" value="{{ a.id }}">Edit</button>
+		<button type="submit" name="delete-answer" value="{{ a.id }}">Delete</button>	
+	</form>
+	<form>
+	</form>
+	<ol>
+		{% for q in a.questions %}
+		<li>{{ q.content }}</li>
+		{% endfor %}
+	</ol>
+	<hr>
+</div>

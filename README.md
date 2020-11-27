@@ -8,28 +8,29 @@
 ## database set up
 > #### info
 >	flask db
->command added by flask-migrate
+>command added by **flask-migrate**
 >generate everything related to database migrations
 
-
+create the migration repository:
+	
 	flask db init
-create the migration repository
+
+
+generate automatic migration script:
 
 	flask db migrate -m "<comment>"
-generate automatic migration script
+
+apply migration script:
 
 	flask db upgrate
-apply migration script
 
 ## run the server
-Use 'flask run'
-to run the server locally.
-Use flask 'run --host=0.0.0.0'
-for it to be publicky available
+Use `flask run` to run the server locally.
+Use `flask run --host=0.0.0.0` for it to be publicky available
 
 ## flask shell
-Use 'flask shell' command to run a python shell with database classes imported.
-Add the classes you want to be able to access to in the	'make_shell_context' function definition in **flask_card_serv.py** file.
+Use `flask shell` command to run a python shell with database classes imported.
+Add the classes you want to be able to access to in the	`make_shell_context` function definition in **flask_card_serv.py** file.
 
 
 

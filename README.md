@@ -22,20 +22,14 @@ generate automatic migration script
 apply migration script
 
 ## run the server
-Use 
-	flask run
+Use 'flask run'
 to run the server locally.
-User flask
-	run --host=0.0.0.0
+Use flask 'run --host=0.0.0.0'
 for it to be publicky available
 
 ## flask shell
-Use
-	flask shell
-command to run a python shell with database classes imported.
-Add the classes you want to be able to access to in the
-	make_shell_context
-function definition in **flask_card_serv.py** file.
+Use 'flask shell' command to run a python shell with database classes imported.
+Add the classes you want to be able to access to in the	'make_shell_context' function definition in **flask_card_serv.py** file.
 
 
 

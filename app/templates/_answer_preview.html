@@ -1,8 +1,64 @@
+
+<!--
+<div class="media text-muted pt-3">
+	<div class="media-body pb-3 mb-9 samm lh-125 border-bottom border-greay">
+		<div class="d-flex justify-content-between align-items-center w-100">
+			
+			<strong class="d-block text-gray-dark">
+				{{ a.text_content }}
+			</strong>
+			
+			<a href="url_for('edit_answer', id_answer=a.id)">Modifier</a>
+			<a href="#">Supprimer</a>
+			
+			<td align="right">
+				<form>
+					<button type="submit" name="edit-answer" value="{{ a.id }}">Edit</button>
+			
+					<button type="submit" name="delete-answer" value="{{ a.id }}">Delete</button>
+				</form>
+			</td>
+
+		</div>
+	</div>
+	<span>
+		<ol>
+			{% for q in a.questions %}
+			<li>{{ q.content }}</li>
+			{% endfor %}
+		</ol>
+
+	</span>
+
+
+<table class="table table-hover">
+		<tr>
+			<td>
+				Answer: <b>{{ a.text_content }}</b>
+			</td>
+			<td align="right">
+				<form>
+					<button type="submit" name="edit-answer" value="{{ a.id }}">Edit</button>
+			
+					<button type="submit" name="delete-answer" value="{{ a.id }}">Delete</button>
+				</form>
+			</td>
+
+			<ol>
+				{% for q in a.questions %}
+				<li>{{ q.content }}</li>
+				{% endfor %}
+			</ol>
+		</tr>
+</table>
+-->
+
 <div class="answer{{a.id}}-preview">
 	
 	<form>
 		Answer: <b>{{ a.text_content }}</b>
 		<button type="submit" name="edit-answer" value="{{ a.id }}">Edit</button>
+		<button type="submit" name="move-answer" value="{{ a.id }}">Move</button>
 		<button type="submit" name="delete-answer" value="{{ a.id }}">Delete</button>	
 	</form>
 	<form>

@@ -6,7 +6,7 @@ class Question(db.Model):
 	__tablename__ = 'question'
 	id = db.Column(db.Integer, primary_key=True)
 	content = db.Column(db.String(1024), index=True, unique=False)
-	id_answer = db.Column(db.Integer, db.ForeignKey('answer.id'))
+	id_answer = db.Column(db.Integer, db.ForeignKey('answer.id'), nullable=False)
 	need_paper= db.Column(db.Boolean)
 
 	evaluation = db.relationship('Evaluation', backref='question', lazy='dynamic')
@@ -25,7 +25,7 @@ class Question(db.Model):
 class Answer(db.Model):
 	__tablename__ = 'answer'
 	id = db.Column(db.Integer, primary_key=True)
-	id_carnet = db.Column(db.Integer, db.ForeignKey('carnet.id'))
+	id_carnet = db.Column(db.Integer, db.ForeignKey('carnet.id'), nullable=False)
 	text_content = db.Column(db.String(1024), index=True, unique=False)
 	questions = db.relationship('Question', backref='solution', lazy='dynamic')
 
@@ -37,6 +37,10 @@ class Answer(db.Model):
 			q.eraze()
 
 		db.session.delete(self)
+		db.session.commit()
+
+	def move(self, id_carnet):
+		self.id_carnet = id_carnet
 		db.session.commit()
 
 	def edit_content(self, text_content):
@@ -69,6 +73,11 @@ class Carnet(db.Model):
 			child.eraze()
 
 		db.session.delete(self)
+		db.session.commit()
+
+	def move(self, id_carnet):
+		self.id_parent_carnet = id_carnet
+		print(self.id_parent_carnet)
 		db.session.commit()
 
 	def add_answer(self, text_content):

@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+
+
+{% block content %}
+
+	{% if carnet_to_move %}
+		Move carnet "{{ carnet_to_move.name }}"
+	{% elif answer_to_move %}
+		Mover answer "{{ answer_to_move.name }}"
+	{% endif %}
+
+	<ul>
+		{% if base_carnet %}
+		<li> 
+			<form>
+				<button type="submit" name="move-carnet" value="{{ base_carnet.id }}">Move Here</button>	
+				<a href="{{ url_for('main.carnet', id_carnet=base_carnet.id) }}">{{ base_carnet.name }}</a> 
+				| {{ base_carnet.get_all_questions()|length }} questions |
+			</form>
+		</li>
+		{% endif %}
+
+	{% for c in carnets %}
+		{% if c != carnet_to_move %}
+		<li> 
+			<form>
+				<button type="submit" name="move-carnet" value="{{ c.id }}">Move Here</button>	
+				<a href="{{ url_for('main.carnet', id_carnet=c.id) }}">{{ c.name }}</a> 
+				| {{ c.get_all_questions()|length }} questions |
+			</form>
+		</li>
+		{% endif %}
+	{% endfor %}
+	</ul>
+{% endblock %}

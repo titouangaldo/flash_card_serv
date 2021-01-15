@@ -7,9 +7,10 @@
     {% else %}
     <title>Welcome to mind card\)</title>
     {% endif %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
   </head>
 
-  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">
+  
 
   <body>
       <div class="nav-bar">
@@ -18,7 +19,8 @@
         <a href="{{ url_for('trash.trash') }}">Trash</a>
       </div>
       <hr>
-      {% block content %}{% endblock %}
+      {% block content %}
+      {% endblock %}
   </body>
 
   {% block scripts %}

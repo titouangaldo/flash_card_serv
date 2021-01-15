@@ -14,7 +14,6 @@ class EditAnswerForm(FlaskForm):
 	text_content = StringField('Content', validators=[DataRequired()])
 	submit = SubmitField('Edit')
 
-
 class AddQuestionForm(FlaskForm):
 	content = StringField('Content', validators=[DataRequired()])
 	submit = SubmitField('Add')

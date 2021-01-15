@@ -1,6 +1,9 @@
 from app import db
 from datetime import datetime
 import enum
+import logging
+
+logger = logging.getLogger(__name__)
 
 class Question(db.Model):
 	__tablename__ = 'question'
@@ -11,16 +14,19 @@ class Question(db.Model):
 
 	evaluation = db.relationship('Evaluation', backref='question', lazy='dynamic')
 
+
 	def __repr__(self):
 		return f'<Question{self.id} {self.content} [solution={self.id_answer}] [need_paper={self.need_paper}]>'
 
 	def edit_content(self, content):
 		self.content=content
 		db.session.commit()
+		logger.info(f"Question edited: {self}")
 
 	def eraze(self):
 		db.session.delete(self)
 		db.session.commit()
+		logger.info(f"Question deleted: {self}")
 
 class Answer(db.Model):
 	__tablename__ = 'answer'
@@ -28,6 +34,7 @@ class Answer(db.Model):
 	id_carnet = db.Column(db.Integer, db.ForeignKey('carnet.id'), nullable=False)
 	text_content = db.Column(db.String(1024), index=True, unique=False)
 	questions = db.relationship('Question', backref='solution', lazy='dynamic')
+
 
 	def __repr__(self):
 		return f'<Answer{self.id} {self.text_content} [carnet={self.id_carnet}]>'
@@ -38,18 +45,24 @@ class Answer(db.Model):
 
 		db.session.delete(self)
 		db.session.commit()
+		logger.info(f"Answer erased: {self}")
 
 	def move(self, id_carnet):
 		self.id_carnet = id_carnet
 		db.session.commit()
+		logger.info(f"Question moved: {self}")
 
 	def edit_content(self, text_content):
 		self.text_content=text_content
 		db.session.commit()
+		logger.info(f"Question edited: {self}")
 
 	def add_question(self, content, need_paper=False):
-		db.session.add(Question(content=content, need_paper=need_paper, solution=self))
+		question = Question(content=content, need_paper=need_paper, solution=self)
+		db.session.add(question)
 		db.session.commit()
+
+		logger.info(f"Question add")
 
 
 class Carnet(db.Model):
@@ -61,6 +74,7 @@ class Carnet(db.Model):
 	children_carnets = db.relationship('Carnet', backref=db.backref('parent', remote_side=[id]))
 	
 	answers = db.relationship('Answer', backref='carnet', lazy='dynamic')
+
 
 	def __repr__(self):
 		return f'<Carnet{self.id} {self.name} [parent={Carnet.query.get(self.id_parent_carnet).name if self.id_parent_carnet else ""}]>'
@@ -74,19 +88,24 @@ class Carnet(db.Model):
 
 		db.session.delete(self)
 		db.session.commit()
+		logger.info(f"Carnet erazed: {self}")
 
 	def move(self, id_carnet):
 		self.id_parent_carnet = id_carnet
 		print(self.id_parent_carnet)
 		db.session.commit()
 
+		logger.info(f"Carnet moved: {self}")
+
 	def add_answer(self, text_content):
 		db.session.add(Answer(text_content=text_content, carnet=self))
 		db.session.commit()
+		logger.info(f"Answer added to carnet {self}")
 
 	def add_carnet(self, name):
 		db.session.add(Carnet(name=name, parent=self))
 		db.session.commit()
+		logger.info(f"carnet added to carnet {self}")		
 
 	def get_questions(self):
 		questions = []

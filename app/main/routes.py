@@ -4,27 +4,29 @@ from flask import render_template, redirect, url_for, request
 from app.models import Carnet, Answer, Question
 from app import db
 
+def get_trash_carnet():
+	return Carnet.query.filter(Carnet.name == "_Trash_").first()
 
+def get_base_carnet():
+	return Carnet.query.filter(Carnet.name=="_Base_").first()
 
 @bp.route('/', methods=['GET', 'POST'])
 @bp.route('/index', methods=['GET', 'POST'])
 def index():
-	base_carnet = Carnet.query.filter(Carnet.name=="_Base_").first()
-
+	
 	addCarnetForm = AddCarnetForm()
 	if addCarnetForm.validate_on_submit():
-		base_carnet.add_carnet(name=addCarnetForm.name.data)
+		get_base_carnet().add_carnet(name=addCarnetForm.name.data)
 		return redirect(url_for('main.index'))
 
 	
-	main_carnets = base_carnet.children_carnets
+	main_carnets = get_base_carnet().children_carnets
 
 	# delete carnet
 	carnet_to_delete_id=request.args.get('delete-carnet', None, type=int)
 	if carnet_to_delete_id:
 		print("Carnet to delete:", carnet_to_delete_id)
-		trash_carnet = Carnet.query.filter(Carnet.name == "_Trash_").first()
-		Carnet.query.get(carnet_to_delete_id).move(trash_carnet.id)
+		Carnet.query.get(carnet_to_delete_id).move(get_trash_carnet().id)
 		return redirect(url_for('main.index'))
 
 	# move carnet
@@ -73,15 +75,13 @@ def carnet(id_carnet):
 	carnet_to_delete_id=request.args.get('delete-carnet', None, type=int)
 	if carnet_to_delete_id:
 		print("Carnet to delete:", carnet_to_delete_id)
-		trash_carnet = Carnet.query.filter(Carnet.name == "_Trash_").first()
-		Carnet.query.get(carnet_to_delete_id).move(trash_carnet.id)
+		Carnet.query.get(carnet_to_delete_id).move(get_trash_carnet().id)
 		return redirect(url_for('main.carnet', id_carnet=id_carnet))
 
 	# delete answer
 	answer_to_delete_id=request.args.get('delete-answer', None, type=int)
 	if answer_to_delete_id:
-		trash_carnet = Carnet.query.filter(Carnet.name == "_Trash_").first()
-		Answer.query.get(answer_to_delete_id).move(trash_carnet.id)
+		Answer.query.get(answer_to_delete_id).move(get_trash_carnet().id)
 		return redirect(url_for('main.carnet', id_carnet=id_carnet))
 
 	# edit answer
@@ -107,6 +107,7 @@ def edit_answer(id_answer):
 	else:
 		editAnswerForm.text_content.data = answer.text_content
 
+	# add a question
 	addQuestionForm = AddQuestionForm()
 	if addQuestionForm.validate_on_submit():
 		answer.add_question(addQuestionForm.content.data)
@@ -122,8 +123,6 @@ def edit_answer(id_answer):
 
 	# delete question
 	question_to_delete_id=request.args.get('delete-question', None, type=int)
-	print(dict(request.args))
-	print(question_to_delete_id)
 	if question_to_delete_id:
 		Question.query.get(question_to_delete_id).eraze()
 		return redirect(url_for('main.edit_answer', id_answer=id_answer))
@@ -145,12 +144,9 @@ def move_carnet(id_carnet):
 		carnet_to_move.move(id_carnet_to_move_to)
 		return redirect(url_for('main.carnet', id_carnet=id_carnet_to_move_to))
 
-	trash_carnet = Carnet.query.filter(Carnet.name == "_Trash_").first()
-	carnets = Carnet.query.filter(Carnet.name != "_Trash_" and Carnet.id_parent_carnet != trash_carnet.id)
+	carnets = Carnet.query.filter(Carnet.name != "_Trash_" and Carnet.id_parent_carnet != get_trash_carnet().id)
 
-	base_carnet = Carnet.query.filter(Carnet.name=="_Base_").first()
-
-	return render_template('move.html', carnet_to_move=carnet_to_move, base_carnet=base_carnet,\
+	return render_template('move.html', carnet_to_move=carnet_to_move, base_carnet=get_base_carnet(),\
 		carnets=carnets)
 
 @bp.route('/move_answer/<id_answer>', methods=['GET', 'POST'])
@@ -164,10 +160,7 @@ def move_answer(id_answer):
 		answer_to_move.move(id_carnet_to_move_to)
 		return redirect(url_for('main.carnet', id_carnet=id_carnet_to_move_to))
 
-
-	trash_carnet = Carnet.query.filter(Carnet.name == "_Trash_").first()
-	carnets = Carnet.query.filter(Carnet.name != "_Trash_" and Carnet.id_parent_carnet != trash_carnet.id)
-	base_carnet = Carnet.query.filter(Carnet.name=="_Base_").first()
+	carnets = Carnet.query.filter(Carnet.name != "_Trash_" and Carnet.id_parent_carnet != get_trash_carnet().id)
 
 	return render_template('move.html', answer_to_move=answer_to_move, carnets=carnets)
 

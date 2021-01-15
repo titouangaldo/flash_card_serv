@@ -3,10 +3,21 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_bootstrap import Bootstrap
 from config import Config
+import logging
 
 db = SQLAlchemy()
 migrate = Migrate()
 bootstrap = Bootstrap()
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.DEBUG)
+
+
+console_log_handler = logging.StreamHandler()
+console_log_handler.setLevel(logging.DEBUG)
+formatter = logging.Formatter('%(asctime)s | [%(levelname)s] %(name)s: %(message)s')
+console_log_handler.setFormatter(formatter)
+logger.addHandler(console_log_handler)
 
 def create_app(config_class=Config):
 	app = Flask(__name__)

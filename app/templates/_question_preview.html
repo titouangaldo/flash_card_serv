@@ -1,10 +1,19 @@
 <div class="question{{q.id}}-preview">
-	<hr>
-	<form>
-		<input type="text" name="edit-question{{q.id}}" size="{{q.content|length + 10}}" value="{{q.content}}">
-		
-	</form>
-	<form>
-		<button type="submit" name="delete-question" value="{{q.id}}">Delete question</button>
-	</form>
+	
+		<div>
+			<form>
+			<td style="width:60%; padding: 1px">
+				<input type="text" name="edit-question{{q.id}}" style="width:90%; text-align:center" value="{{q.content}}">
+			</td>
+			<td style="width:30%; padding: 1px">
+				<label> {{ q.content }} </label>
+			</td>
+			</form>
+			<form>
+			<td style="width:10%; padding: 1px">
+				<button type="submit" name="delete-question" value="{{ q.id  }}">Delete question</button>
+			</td>
+			</form>
+		</div>
+	
 </div>

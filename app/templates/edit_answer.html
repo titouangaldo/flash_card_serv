@@ -6,34 +6,57 @@
 {% block content %}
 	
 	<a href="{{ url_for('main.carnet', id_carnet=answer.id_carnet) }}">Return to carnet</a>
-	<h1>Answer: <b>{{ answer.text_content }}</b></h1>
-
-	{% if editAnswerForm %}
-		<form action="" method="post" novalidate>
-	        {{ editAnswerForm.hidden_tag() }}
-	        <p>
-	            {{ editAnswerForm.text_content.label }}
-	            {{ editAnswerForm.text_content(size=32) }}
-	        	{{ editAnswerForm.submit() }}
-	        </p>
-		</form>
-	{% endif %}
-	<hr>
-	<h3>Add Question</h3>
-	{% if addQuestionForm %}
-		<form action="" method="post" novalidate>
-	        {{ addQuestionForm.hidden_tag() }}
-	        <p>
-	            {{ addQuestionForm.content.label }}
-	            {{ addQuestionForm.content(size=32) }}
-	        	{{ addQuestionForm.submit() }}
-	        </p>
-		</form>
-	{% endif %}
-
-	{% for q in answer.questions %}
-		{% include '_question_preview.html' %}
-	{% endfor %}
 	
+	<div style="text-align: center;">
+		<h1>Answer: <b>{{ answer.text_content }}</b></h1>
+		{% if editAnswerForm %}
+			<form action="" method="post" id="editAnswerForm" novalidate>
+		        {{ editAnswerForm.hidden_tag() }}
+		        <p>
+		            {{ editAnswerForm.text_content.label }}
+		            {{ editAnswerForm.text_content(size=32) }}
+		        	{{ editAnswerForm.submit() }}
+		        </p>
+			</form>
+		{% endif %}
+	</div>
 
+	<hr>
+	<hr>
+
+	<table style="width:80%; margin-left: auto; margin-right: auto;">
+		<thead>
+
+			<tr>
+				<th colspan="3">
+				<div>
+				
+				{% if addQuestionForm %}
+					<form action="" method="post" novalidate>
+				        {{ addQuestionForm.hidden_tag() }}
+				        <p>
+				        	<big>Add Question</big>
+				            {{ addQuestionForm.content(size=32) }}
+				        	{{ addQuestionForm.submit() }}
+				        </p>
+					</form>
+				{% endif %}
+				</div>
+				</th>
+			</tr>
+		</thead>
+	
+	
+		<tbody>
+			
+	{% for q in answer.questions %}
+		<tr>
+			{% include '_question_preview.html' %}
+		</tr>
+	{% endfor %}
+			
+		</tbody>
+	</table>
+	
 {% endblock %}
+

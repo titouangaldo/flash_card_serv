@@ -13,6 +13,7 @@
 	<h1>
 		{{ carnet.name }}
 		<a href="{{ url_for('interrogation.interrogation', id_carnet=carnet.id) }}">Start Interrogation</a>
+		<a href="{{ url_for('latex.latex', id_carnet=carnet.id) }}">Download as Latex</a>
 	</h1>
 
 	{% include '_inner_carnet_view.html' %}

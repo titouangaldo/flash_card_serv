@@ -24,4 +24,8 @@ def create_app(config_class=Config):
 
 	from app.trash import bp as trash_bp
 	app.register_blueprint(trash_bp)
+	
+	from app.latex import bp as latex_bp
+	app.register_blueprint(latex_bp)
+
 	return app

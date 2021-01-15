@@ -1,20 +1,17 @@
 
 <html>
-  
+
   <head>
     {% if title %}
     <title>{{ title }} - mind card</title>
     {% else %}
     <title>Welcome to mind card\)</title>
     {% endif %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/styles.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/styles.css') }}">
   </head>
 
-  
-
   <body>
-      <div class="nav-bar">
-        \(\frac{mind}{card}\):
+      <div class="nav-bar">\(\frac{mind}{card}\):
         <a href="{{ url_for('main.index') }}">Home</a>
         <a href="{{ url_for('trash.trash') }}">Trash</a>
       </div>

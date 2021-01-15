@@ -1,5 +1,6 @@
-a:hover, a:visited, a:link, a:active{
-	color: yellow;
+a:visited, a:link, a:hover, a:active {
+	color: green;
+	background-color: transparent;
 	text-decoration: none;
 }
 
@@ -7,6 +8,20 @@ div.nav-bar {
 	color: green;
 	font-size:30px;
 }
+
+div.page_head {
+	text-align: center
+}
+
+div.add_carnet {
+	text-align: center;
+}
+
+table.inner_carnet {
+	margin-left: auto;
+	margin-right: auto;
+}
+
 
 div.question-content {
 	margin-top: 30;
@@ -30,3 +45,9 @@ div.autoeval-form {
 	text-align: center;
 	width: 500px;
 }
+
+
+
+
+
+

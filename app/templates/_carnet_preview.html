@@ -1,13 +1,21 @@
 <div class="carnet{{c.id}}-preview">
-	
 	<form>
-		<a href="{{ url_for('main.carnet', id_carnet=c.id) }}">{{ c.name }}</a>
-	| {{ c.get_all_questions()|length }} questions
+		<td>
+			<a href="{{ url_for('main.carnet', id_carnet=c.id) }}">{{ c.name }}</a>
+		</td>
 
-	{% if c.name != "Trash" %}
-		<button type="submit" name="delete-carnet" value="{{ c.id }}">Delete</button>
-		<button type="submit" name="move-carnet" value="{{ c.id }}">Move</button>
-	{% endif %}
+		<td>
+			{{ c.get_all_questions()|length }} questions
+		</td>
+
+		{% if c.name != "Trash" %}
+			<td>
+				<button type="submit" name="delete-carnet" value="{{ c.id }}">Delete</button>
+			</td>
+			
+			<td>
+				<button type="submit" name="move-carnet" value="{{ c.id }}">Move</button>
+			</td>
+		{% endif %}
 	</form>
-	<hr>
 </div>

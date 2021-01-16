@@ -1,4 +1,14 @@
 
+<div class="centered">
+	<button class="display-answer-but" onclick="display_answer()">Display Answer</button>
+</div>
+
+<div class="answer-content" style="visibility: hidden; display: none">
+	{% if answer.text_content %}{{ answer.text_content }}
+	{% else %}No content for this answer
+	{% endif %}
+</div>
+
 {% block scripts %}
 	<script> <!--toggle display-->
 	    function display_answer(){
@@ -14,16 +24,3 @@
 	    }
 	</script>
 {% endblock %}
-
-<div class="answer" >
-	<p>
-		<button class="display-answer-but" onclick="display_answer()">Display Answer</button>
-	</p>
-	<p>
-		<div class="answer-content" style="visibility: hidden; display: none">
-			{% if answer.text_content %}{{ answer.text_content }}
-			{% else %}No content for this answer
-			{% endif %}
-		</div>
-	</p>
-</div>

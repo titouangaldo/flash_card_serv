@@ -12,9 +12,11 @@
 		<h1>{{ carnet.name }}</h1>
 	</div>
 
-	<span class="link">
-		<a href="{{ url_for('interrogation.interrogation', id_carnet=carnet.id) }}">Start Interrogation</a>
-	</span>
+	{% if inner_answers|length > 0 %}
+		<span class="link">
+			<a href="{{ url_for('interrogation.interrogation', id_carnet=carnet.id) }}">Start Interrogation</a>
+		</span>
+	{% endif %}
 	<span class="link">
 		<a href="{{ url_for('latex.latex', id_carnet=carnet.id) }}">Download as Latex</a>
 	</span>

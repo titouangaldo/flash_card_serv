@@ -110,14 +110,13 @@ class Carnet(db.Model):
 	def get_questions(self):
 		questions = []
 		for a in self.answers:
-			for q in a.questions:
-				questions.append(q)
+			questions += a.questions
 		return questions
 
 	def get_all_questions(self):
 		questions = self.get_questions()
 		for c in self.children_carnets:
-			questions += c.get_questions()
+			questions += c.get_all_questions()
 		return questions
 
 class autoeval(enum.Enum):

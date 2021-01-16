@@ -2,16 +2,16 @@
 	
 		<div>
 			<form>
-			<td style="width:60%; padding: 1px">
-				<input type="text" name="edit-question{{q.id}}" style="width:90%; text-align:center" value="{{q.content}}">
+			<td style="width:50%">
+				<input type="text" name="edit-question{{q.id}}" style="width: 100%; text-align:center" value="{{q.content}}">
 			</td>
-			<td style="width:30%; padding: 1px">
+			<td style="width:35%; padding: 1px">
 				<label> {{ q.content }} </label>
 			</td>
 			</form>
 			<form>
-			<td style="width:10%; padding: 1px">
-				<button type="submit" name="delete-question" value="{{ q.id  }}">Delete question</button>
+			<td style="width:8%; padding: 1px">
+				<button type="submit" name="delete-question" value="{{ q.id  }}">Delete</button>
 			</td>
 			</form>
 		</div>

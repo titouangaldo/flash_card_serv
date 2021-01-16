@@ -1,5 +1,7 @@
 {% extends "bootstrap/base.html" %}
 
+
+
 {% block title %}
   {% if title %}
   <title>{{ title }} - mind card</title>
@@ -14,6 +16,7 @@
 {% endblock %}
 
 {% block navbar %}
+
   <nav class="navbar navbar-default">
     <div class="container">
       <div class="navbar-header">
@@ -27,14 +30,15 @@
     </div>
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li><a href="{{ url_for('main.index') }}">Home</a></li>
+            <li><a href="{{ url_for('main.index') }}">Home</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="{{ url_for('trash.trash') }}">Trash</a></li>
+            <li><a href="{{ url_for('trash.trash') }}">Trash</a></li>
         </ul>
       </div>
     </div>
   </nav>
+
 {% endblock %}
 
 {% block content %}
@@ -48,6 +52,8 @@
 
 
 {% block scripts %}
+
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
   <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
 {% endblock %}

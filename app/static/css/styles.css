@@ -1,57 +1,51 @@
-
 div.page-head {
 	text-align: left;
+	
 }
 
-div.add-carnet-answer {
+div.add-carnet {
 	text-align: left;
 }
 
 
-.carnet-title {
-	border-spacing: 5px;
-}
-
-span.link {
-	margin-right: 2%;
+td.link {
+	padding: 0% 2%;
 	text-align: left;
-	vertical-align: top;
-}
-
-button.display-answer-preview-but {
-	vertical-align: text-bottom;
+	vertical-align: middle;
 }
 
 
-div.question-content {
-	margin-left: : auto;
-	margin-right: auto;
-	text-align: center;
-	font-size: medium;
-}
 
-div.centered {
-	margin-top: 5%;
-	margin-bottom: 5%;
-	text-align: center;
-}
-
-button.display-answer-but {
-	text-align: center;
+table.inner_carnet {
 	margin-left: auto;
 	margin-right: auto;
 }
 
-div.answer-content {
-	margin-left: : auto;
-	margin-right: auto;
+
+div.question-content {
+	margin-top: 30;
 	text-align: center;
-	font-size: medium;
+	font-size: 30px;
+}
+
+.display-answer-but {
+	display: block;
+	margin: 5% auto;
+}
+
+div.answer-content {
+	font-size: 30px;
+	text-align: center;
 }
 
 div.autoeval-form {
+	margin: 0 auto;
 	text-align: center;
+	width: 500px;
 }
+
+
+
 
 
 

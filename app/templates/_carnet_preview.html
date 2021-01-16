@@ -1,16 +1,58 @@
 	<tr>
 		<form>
-		<td width="30%">
+		<td width="20%">
 			
-				<a href="{{ url_for('main.carnet', id_carnet=c.id) }}"><b>{{ c.name }}</b></a>
+				<a href="{{ url_for('main.carnet', id_carnet=c.carnet.id) }}"><b>{{ c.carnet.name }}</b></a>
 		</td>
-		<td width="30%">
-			{{ c.get_all_questions()|length }} questions
+		<td width="20%">
+			{{ c.carnet.get_all_questions()|length }} questions
 		</td>
-		<td width="10%">
+		<td width="50%">
+			<div class="container-fluid">
+				{% if c.knowledge[4] > 0 %}
+				<div class="progress">
+					<div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="{{ c.knowledge[4] }}"
+					aria-valuemin="0" aria-valuemax="100" style="width:{{ c.knowledge[4] }}%">
+					{{ c.knowledge[4] }}%
+					</div>
+				{% endif %}
+
+				{% if c.knowledge[3] > 0 %}
+					<div class="progress-bar progress-bar-info" role="progressbar" aria-valuenow="{{ c.knowledge[3] }}"
+					aria-valuemin="0" aria-valuemax="100" style="width:{{ c.knowledge[3] }}%">
+					{{ c.knowledge[3] }}%
+					</div>
+				{% endif %}
+
+				{% if c.knowledge[2] > 0 %}
+					<div class="progress-bar progress-bar-warning" role="progressbar" aria-valuenow="{{ c.knowledge[2] }}"
+					aria-valuemin="0" aria-valuemax="100" style="width:{{ c.knowledge[2] }}%">
+					{{ c.knowledge[2] }}%
+					</div>
+				{% endif %}
+
+				{% if c.knowledge[1] > 0 %}
+					<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{ c.knowledge[1] }}"
+					aria-valuemin="0" aria-valuemax="100" style="width:{{ c.knowledge[1] }}%">
+					{{ c.knowledge[1] }}%
+					</div>
+				{% endif %}
+
+				{% if c.knowledge[0] > 0 %}
+					<div class="progress-bar progress-bar-danger" role="progressbar" aria-valuenow="{{ c.knowledge[1] }}"
+					aria-valuemin="0" aria-valuemax="100" style="width:{{ c.knowledge[0] }}%; background-color: #eeeeee;">
+					{{ c.knowledge[0] }}%
+					</div>
+				{% endif %}
+
+				</div>
+
+			</div>
+		</td>
+		<td width="5%">
 				<button type="submit" name="move-carnet" value="{{ c.id }}">Move</button>
 		</td>
-		<td width="10%">
+		<td width="5%">
 				<button type="submit" name="delete-carnet" value="{{ c.id }}">Delete</button>
 			
 		</td>

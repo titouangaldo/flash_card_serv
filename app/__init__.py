@@ -5,6 +5,7 @@ from flask_bootstrap import Bootstrap
 from config import Config
 import logging
 
+
 db = SQLAlchemy()
 migrate = Migrate()
 bootstrap = Bootstrap()

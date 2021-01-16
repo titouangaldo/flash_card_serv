@@ -3,12 +3,26 @@ from app.main.forms import AddCarnetForm, AddAnswerForm, EditAnswerForm, AddQues
 from flask import render_template, redirect, url_for, request
 from app.models import Carnet, Answer, Question
 from app import db
+import logging
 
 def get_trash_carnet():
 	return Carnet.query.filter(Carnet.name == "_Trash_").first()
 
 def get_base_carnet():
 	return Carnet.query.filter(Carnet.name=="_Base_").first()
+
+@bp.before_app_first_request
+def before_app_first_request():
+	if not get_base_carnet():
+		db.session.add(Carnet(name="_Base_"))
+		db.session.commit()
+		logging.getLogger(__name__).warn("Base Carnet was added because there were not any")
+
+	if not get_trash_carnet():
+		db.session.add(Carnet(name="_Trash_"))
+		db.session.commit()
+		logging.getLogger(__name__).warn("Trash Carnet was added because there were not any")
+
 
 @bp.route('/', methods=['GET', 'POST'])
 @bp.route('/index', methods=['GET', 'POST'])
@@ -34,8 +48,18 @@ def index():
 	if carnet_to_move_id:
 		print("Carnet to move:", carnet_to_move_id)
 		return redirect(url_for('main.move_carnet', id_carnet=carnet_to_move_id))
+
+
+	class CarnetxKnowledges:
+		def __init__(self, carnet, knowledge):
+			self.carnet = carnet
+			self.knowledge = knowledge
+
+	carnetsXknowledges = []
+	for c in main_carnets:
+		carnetsXknowledges.append(CarnetxKnowledges(c, c.get_knowledge_composition()))
 		
-	return render_template('index.html', title='Home', inner_carnets=main_carnets, addCarnetForm=addCarnetForm)
+	return render_template('index.html', title='Home', inner_carnets=carnetsXknowledges, addCarnetForm=addCarnetForm)
 
 
 
@@ -89,9 +113,17 @@ def carnet(id_carnet):
 	if answer_to_edit_id:
 		return redirect(url_for('main.edit_answer', id_answer=answer_to_edit_id))
 
+	class CarnetxKnowledges:
+		def __init__(self, carnet, knowledge):
+			self.carnet = carnet
+			self.knowledge = knowledge
+
+	carnetsXknowledges = []
+	for c in inner_carnets:
+		carnetsXknowledges.append(CarnetxKnowledges(c, c.get_knowledge_composition()))
 
 	return render_template('carnet.html', carnet=carnet,\
-	 	inner_carnets=inner_carnets, inner_answers=inner_answers,\
+	 	inner_carnets=carnetsXknowledges, inner_answers=inner_answers,\
 		addCarnetForm=addCarnetForm, addAnswerForm=addAnswerForm)
 
 

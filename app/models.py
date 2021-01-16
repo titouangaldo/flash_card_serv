@@ -2,6 +2,7 @@ from app import db
 from datetime import datetime
 import enum
 import logging
+from sqlalchemy.ext.orderinglist import ordering_list
 
 logger = logging.getLogger(__name__)
 
@@ -12,7 +13,7 @@ class Question(db.Model):
 	id_answer = db.Column(db.Integer, db.ForeignKey('answer.id'), nullable=False)
 	need_paper= db.Column(db.Boolean)
 
-	evaluation = db.relationship('Evaluation', backref='question', lazy='dynamic')
+	evaluation = db.relationship('Evaluation', uselist=True, order_by="Evaluation.timestamp.desc()", backref='question', lazy='dynamic', collection_class=ordering_list('timestamp.desc()'))
 
 
 	def __repr__(self):
@@ -27,6 +28,12 @@ class Question(db.Model):
 		db.session.delete(self)
 		db.session.commit()
 		logger.info(f"Question deleted: {self}")
+
+	def last_evaluation(self):
+		if list(self.evaluation) == []:
+			return None
+		else:
+			return self.evaluation[0]
 
 class Answer(db.Model):
 	__tablename__ = 'answer'
@@ -118,6 +125,22 @@ class Carnet(db.Model):
 		for c in self.children_carnets:
 			questions += c.get_all_questions()
 		return questions
+
+	def get_knowledge_composition(self):
+		questions = self.get_all_questions()
+		knowledge = [0, 0, 0, 0, 0]
+		
+		if len(questions)==0:
+			return knowledge
+		
+		for q in questions:
+			last_eval = q.last_evaluation()
+			if last_eval:
+				knowledge[last_eval.result.value] += 1
+			else:
+				knowledge[0] += 1
+		print(list(map(lambda x: int(x*100/len(questions)), knowledge)))
+		return list(map(lambda x: int(x*100/len(questions)), knowledge))
 
 class autoeval(enum.Enum):
 	not_known = 1

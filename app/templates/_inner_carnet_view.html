@@ -1,27 +1,23 @@
-<div class="page_head">
-    <h2>Inner Carnets</h2>
+
+<div class="add-carnet-answer">
+  <h4>Add Carnet</h4>
+  {% if addCarnetForm %}
+  	<form action="" method="post" novalidate>
+      {{ addCarnetForm.hidden_tag() }}
+      <p>
+        {{ addCarnetForm.name.label }}
+        {{ addCarnetForm.name(size=32) }}
+      	{{ addCarnetForm.submit() }}
+      </p>
+  	</form>
+  {% endif %}
 </div>
 
-<div class="add_carnet">
-    <h3>Add Carnet</h3>
-    {% if addCarnetForm %}
-    	<form action="" method="post" novalidate>
-            {{ addCarnetForm.hidden_tag() }}
-            <p>
-                {{ addCarnetForm.name.label }}
-                {{ addCarnetForm.name(size=32) }}
-            	{{ addCarnetForm.submit() }}
-            </p>
-    	</form>
-    {% endif %}
-</div>
+  {% if inner_carnets|length > 0 %}
 
-{% if inner_carnets|length > 0 %}
-<table class="inner_carnet">
-    {% for c in inner_carnets %}
-        <tr>
-		  {% include '_carnet_preview.html' %}
-        </tr>
-	{% endfor %}
-</table>
-{% endif %}
+    <table class="table table-hover">
+      {% for c in inner_carnets %}
+  		    {% include '_carnet_preview.html' %}
+  	  {% endfor %}
+    </table>
+  {% endif %}

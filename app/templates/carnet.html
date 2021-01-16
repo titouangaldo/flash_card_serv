@@ -1,8 +1,6 @@
 {% extends "base.html" %}
 
-
-
-{% block content %}
+{% block app_content %}
 
 	{% if carnet.id_parent_carnet %}
 		<a href="{{ url_for('main.carnet', id_carnet=carnet.id_parent_carnet) }}">Return to parent carnet</a>
@@ -10,11 +8,16 @@
 		<a href="{{ url_for('main.index') }}">Return to parent carnet</a>
 	{% endif %}
 
-	<h1>
-		{{ carnet.name }}
+	<div class="page-head">
+		<h1>{{ carnet.name }}</h1>
+	</div>
+
+	<span class="link">
 		<a href="{{ url_for('interrogation.interrogation', id_carnet=carnet.id) }}">Start Interrogation</a>
+	</span>
+	<span class="link">
 		<a href="{{ url_for('latex.latex', id_carnet=carnet.id) }}">Download as Latex</a>
-	</h1>
+	</span>
 
 	{% include '_inner_carnet_view.html' %}
 

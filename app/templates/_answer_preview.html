@@ -52,21 +52,27 @@
 		</tr>
 </table>
 -->
+<tr>
+	<form>
+		<td width="70%">
+			Answer: <b>{{ a.text_content }}</b>
 
-<div class="answer{{a.id}}-preview">
+			<ol>
+				{% for q in a.questions %}
+				<li>{{ q.content }}</li>
+				{% endfor %}
+			</ol>
+
+		</td>
+		<td width="10%">
+			<button type="submit" name="edit-answer" value="{{ a.id }}">Edit</button>
+		</td>
+		<td width="10%">
+			<button type="submit" name="move-answer" value="{{ a.id }}">Move</button>
+		</td>
+		<td width="10%">
+			<button type="submit" name="delete-answer" value="{{ a.id }}">Delete</button>	
+		</td>
+	</form>
+</tr>
 	
-	<form>
-		Answer: <b>{{ a.text_content }}</b>
-		<button type="submit" name="edit-answer" value="{{ a.id }}">Edit</button>
-		<button type="submit" name="move-answer" value="{{ a.id }}">Move</button>
-		<button type="submit" name="delete-answer" value="{{ a.id }}">Delete</button>	
-	</form>
-	<form>
-	</form>
-	<ol>
-		{% for q in a.questions %}
-		<li>{{ q.content }}</li>
-		{% endfor %}
-	</ol>
-	<hr>
-</div>

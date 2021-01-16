@@ -1,3 +1,4 @@
 .DS_Store
 app.db
 flask_env/
+tmp/

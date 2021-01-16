@@ -1,49 +1,25 @@
-a:visited, a:link, a:hover, a:active {
-	color: green;
-	background-color: transparent;
-	text-decoration: none;
+
+div.page-head {
+	text-align: left;
 }
 
-div.nav-bar {
-	color: green;
-	font-size:30px;
-}
-
-div.page_head {
-	text-align: center
-}
-
-div.add_carnet {
-	text-align: center;
-}
-
-table.inner_carnet {
-	margin-left: auto;
-	margin-right: auto;
+div.add-carnet-answer {
+	text-align: left;
 }
 
 
-div.question-content {
-	margin-top: 30;
-	text-align: center;
-	font-size: 30px;
+.carnet-title {
+	border-spacing: 5px;
 }
 
-.display-answer-but {
-	display: block;
-	margin: 0 auto;
+span.link {
+	margin-right: 2%;
+	text-align: left;
+	vertical-align: top;
 }
 
-div.answer-content {
-	color: blue;
-	font-size: 30px;
-	text-align: center;
-}
-
-div.autoeval-form {
-	margin: 0 auto;
-	text-align: center;
-	width: 500px;
+button.display-answer-preview-but {
+	vertical-align: text-bottom;
 }
 
 

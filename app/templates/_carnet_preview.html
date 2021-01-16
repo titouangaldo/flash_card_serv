@@ -1,21 +1,18 @@
-<div class="carnet{{c.id}}-preview">
-	<form>
-		<td>
-			<a href="{{ url_for('main.carnet', id_carnet=c.id) }}">{{ c.name }}</a>
+	<tr>
+		<form>
+		<td width="30%">
+			
+				<a href="{{ url_for('main.carnet', id_carnet=c.id) }}"><b>{{ c.name }}</b></a>
 		</td>
-
-		<td>
+		<td width="30%">
 			{{ c.get_all_questions()|length }} questions
 		</td>
-
-		{% if c.name != "Trash" %}
-			<td>
-				<button type="submit" name="delete-carnet" value="{{ c.id }}">Delete</button>
-			</td>
-			
-			<td>
+		<td width="10%">
 				<button type="submit" name="move-carnet" value="{{ c.id }}">Move</button>
-			</td>
-		{% endif %}
-	</form>
-</div>
+		</td>
+		<td width="10%">
+				<button type="submit" name="delete-carnet" value="{{ c.id }}">Delete</button>
+			
+		</td>
+		</form>
+	</tr>
